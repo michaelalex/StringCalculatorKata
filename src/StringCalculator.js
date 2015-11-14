@@ -9,15 +9,11 @@ StringCalculator.prototype.getCustomDelimiters = function(delimiterText){
 	var delimiters = delimiterText.split(/[[\]]/);
 
 	for (index = delimiters.length - 1; index >= 0; index--){
-		var delimiter = delimiters[index];
-		if (delimiter.length === 0){
-			delimiters.splice(index, 1);
-		}
-		else if (delimiter.length > 1){
-			delimiters[index] = "[\\" + delimiter + "]";
+		if (delimiters[index].length > 1){
+			delimiters[index] = "[\\" + delimiters[index] + "]";
 		}
 	}
-	return new RegExp(delimiters.join('|'), "g");
+	return new RegExp(delimiters.join('|'));
 };
 
 StringCalculator.prototype.add = function(numbers){
@@ -39,7 +35,6 @@ StringCalculator.prototype.add = function(numbers){
 		}
 		if (currentValue < 0){
 			negativeNumbersFound.push(currentValue);
-			continue;
 		}
 		total += currentValue;
 	}
